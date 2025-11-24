@@ -94,10 +94,9 @@ def indices(lista,elemento):
         
 def datos_por_deporte(lista,diccionario,deporte):
     inicio = indice(lista,deporte)
-    matriz = []
+    matriz = [["Nombre","País","Medallas"]]
     for x in lista[inicio:diccionario.get(deporte)+inicio]:
         matriz.append([' '.join(x[3].split("_")),x[1],x[2]])
-    st.write("**Columnas:** Nombre | País | Medallas")
     st.dataframe(matriz)
     
 def datos_por_atleta(lista,atleta):
