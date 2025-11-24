@@ -64,7 +64,7 @@ deportes_ordenados = sorted(deportes.items(), key=lambda x: x[1], reverse=True)
 contenido_2 = "{:<25}{:<5}\n".format("Deporte","Medalla")
 for tupla in deportes_ordenados:
     contenido_2 += "{:<25}{:<5}\n".format(tupla[0],tupla[1])
-cont_2 = io.BytesIO(contenido.encode("utf-8"))
+cont_2 = io.BytesIO(contenido_2.encode("utf-8"))
 if archivo is not None:
     with columna2:
         st.write("Archivo con la cantidad de medallas que se entregaron en cada deporte")
