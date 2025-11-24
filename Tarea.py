@@ -4,7 +4,6 @@ import io
 st.title("Juegos Panamericanos")
 
 lista_txt = []
-columna1, columna2 = st.columns(2)
 
 archivo = st.file_uploader("Sube un archivo.txt", type=["txt"])
 if archivo is not None:
@@ -15,6 +14,8 @@ if archivo is not None:
     st.success("Archivo cargado y procesado correctamente")
 else:
     st.info("Por favor sube el archivo para continuar")
+
+columna1, columna2 = st.columns(2)
 
 def sin_repetidos_dict(lista,indice):
     diccionario = {}
@@ -47,7 +48,7 @@ for tupla in paises_ordenados:
 cont = io.BytesIO(contenido.encode("utf-8"))
 if archivo is not None:
     with columna1:
-        st.subheader("Archivo con la cantidad de medallas que obtuvo cada país y su total")
+        st.write("Archivo con la cantidad de medallas que obtuvo cada país y su total")
         st.download_button(label = "Descargar medallero.txt",
                    data = cont,
                    file_name = "medallero.txt",
@@ -71,7 +72,7 @@ for tupla in deportes_ordenados:
 cont_2 = io.BytesIO(contenido.encode("utf-8"))
 if archivo is not None:
     with columna2:
-        st.subheader("Archivo con la cantidad de medallas que se entregaron en cada deporte")
+        st.write("Archivo con la cantidad de medallas que se entregaron en cada deporte")
         st.download_button(label = "Descargar deportes.txt",
                    data = cont_2,
                    file_name = "deportes.txt",
