@@ -17,13 +17,6 @@ else:
 
 columna1, columna2 = st.columns(2)
 
-def sin_repetidos_dict(lista,indice):
-    diccionario = {}
-    for elemento in lista:
-        if elemento[indice] not in diccionario:
-            diccionario[elemento[indice]] = [0,0,0]
-    return diccionario       
-        
 def sumar_medallas(valor):
     if valor == "ORO":
         indice = 0
@@ -33,13 +26,16 @@ def sumar_medallas(valor):
         indice = 2
     return indice
 
-def contar_medallas(lista):
-    paises = sin_repetidos_dict(lista,1)
+def sin_paises_repetidos(lista):
+    diccionario = {}
     for elemento in lista:
-        paises[elemento[1]][sumar_medallas(elemento[2])] += 1
-    return paises
+        if elemento[1] not in diccionario:
+            diccionario[elemento[1]] = [0,0,0]
+        else:
+            diccionario[elemento[1]][sumar_medallas(elemento[2])] += 1
+    return diccionario       
 
-paises_medallas = contar_medallas(lista_txt)
+paises_medallas = sin_paises_repetidos(lista_txt)
 paises_ordenados = sorted(paises_medallas.items(), key=lambda x: sum(x[1]), reverse=True )
 
 contenido = "{:<7}{:<7}{:<7}{:<7}{:<7}\n".format("País","Oro","Plata","Bronce","Total")
@@ -54,16 +50,16 @@ if archivo is not None:
                    file_name = "medallero.txt",
                    mime = "text/plain")
 
-def medallas_deporte(lista):
-    deport = {}
+def medallas_por_deporte(lista):
+    deportes = {}
     for sublista in lista:
-        if sublista[0] not in deport:
-            deport[sublista[0]] = 1
+        if sublista[0] not in deportes:
+            deportes[sublista[0]] = 1
         else:
-            deport[sublista[0]] += 1
-    return deport
+            deportes[sublista[0]] += 1
+    return deportes
             
-deportes = medallas_deporte(lista_txt)
+deportes = medallas_por_deporte(lista_txt)
 deportes_ordenados = sorted(deportes.items(), key=lambda x: x[1], reverse=True)
 
 contenido_2 = "{:<25}{:<5}\n".format("Deporte","Medalla")
@@ -78,36 +74,36 @@ if archivo is not None:
                    file_name = "deportes.txt",
                    mime = "text/plain")
     
-def indice(lista,elemento):
+def indice_deporte(lista,elemento):
     for i,sublista in enumerate(lista):
         if elemento in sublista:
             return i
 
-def sin_repetidos_list(indice):
+def sin_atletas_repetidos(indice):
     lista = []
     for sublista in lista_txt:
         if sublista[indice] not in lista:
             lista.append(sublista[indice])
     return lista
             
-atletas_lista = sin_repetidos_list(3)
+atletas_lista = sin_atletas_repetidos(3)
 
-def indices(lista,elemento):
-    ind_list = []
-    for i,sublista in enumerate(lista):
-        if elemento in sublista:
-            ind_list.append(i)
-    return ind_list
-        
 def datos_por_deporte(lista,diccionario,deporte):
-    inicio = indice(lista,deporte)
+    inicio = indice_deporte(lista,deporte)
     matriz = [["Nombre","País","Medallas"]]
     for x in lista[inicio:diccionario.get(deporte)+inicio]:
         matriz.append([' '.join(x[3].split("_")),x[1],x[2]])
     st.dataframe(matriz)
     
+def indice_atleta(lista,elemento):
+    ind_list = []
+    for i,sublista in enumerate(lista):
+        if elemento in sublista:
+            ind_list.append(i)
+    return ind_list
+    
 def datos_por_atleta(lista,atleta):
-    posiciones = indices(lista,atleta)
+    posiciones = indice_atleta(lista,atleta)
     matriz = [["País","Deporte","Medalla"]]
     for x in posiciones:
         matriz.append([lista[x][1],lista[x][0],lista[x][2]])
