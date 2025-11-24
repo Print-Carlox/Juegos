@@ -12,7 +12,6 @@ if archivo is not None:
 else:
     st.info("Por favor sube el archivo para continuar")
 
-        
 def sin_repetidos_dict(lista,indice):
     diccionario = {}
     for elemento in lista:
@@ -39,8 +38,8 @@ paises_medallas = contar_medallas(lista_txt)
 paises_ordenados = sorted(paises_medallas.items(), key=lambda x: sum(x[1]), reverse=True )
 
 contenido = "{:<7}{:<7}{:<7}{:<7}{:<7}\n".format("País","Oro","Plata","Bronce","Total")
-for supla in paises_ordenados:
-    contenido += "{:<7}{:<7}{:<7}{:<7}{:<7}\n".format(supla[0],supla[1][0],supla[1][1],supla[1][2],sum(supla[1]))
+for tupla in paises_ordenados:
+    contenido += "{:<7}{:<7}{:<7}{:<7}{:<7}\n".format(tupla[0],tupla[1][0],tupla[1][1],tupla[1][2],sum(tupla[1]))
 cont = io.BytesIO(contenido.encode("utf-8"))
 if archivo is not None:
     st.info("Archivo con la cantidad de medallas que obtuvo cada país y su total")
@@ -62,8 +61,8 @@ deportes = medallas_deporte(lista_txt)
 deportes_ordenados = sorted(deportes.items(), key=lambda x: x[1], reverse=True)
 
 contenido_2 = "{:<25}{:<5}\n".format("Deporte","Medalla")
-for supla in deportes_ordenados:
-    contenido_2 += "{:<25}{:<5}\n".format(supla[0],supla[1])
+for tupla in deportes_ordenados:
+    contenido_2 += "{:<25}{:<5}\n".format(tupla[0],tupla[1])
 cont_2 = io.BytesIO(contenido.encode("utf-8"))
 if archivo is not None:
     st.info("Archivo con la cantidad de medallas que se entregaron en cada deporte")
@@ -72,7 +71,6 @@ if archivo is not None:
                    file_name = "deportes.txt",
                    mime = "text/plain")
     
-        
 def indice(lista,elemento):
     for i,sublista in enumerate(lista):
         if elemento in sublista:
@@ -99,14 +97,14 @@ def datos_por_deporte(lista,diccionario,deporte):
     matriz = [["Nombre","País","Medallas"]]
     for x in lista[inicio:diccionario.get(deporte)+inicio]:
         matriz.append([' '.join(x[3].split("_")),x[1],x[2]])
-    st.table(matriz)
+    st.dataframe(matriz)
     
 def datos_por_atleta(lista,atleta):
     posiciones = indices(lista,atleta)
     matriz = [["País","Deporte","Medalla"]]
     for x in posiciones:
         matriz.append([lista[x][1],lista[x][0],lista[x][2]])
-    st.table(matriz)
+    st.dataframe(matriz)
 
 def datos_por_pais(lista,diccinario,elemento):
     st.success("Las medallas que obtuvo fueron Oro: {} | Plata: {} | Bronce: {} | Haciendo un total de {} medallas".format(
@@ -115,14 +113,14 @@ def datos_por_pais(lista,diccinario,elemento):
     for x in lista:
         if x[1] == elemento:
             matriz.append([' '.join(x[3].split("_")),x[2],x[0]])
-    st.table(matriz)
+    st.dataframe(matriz)
     
 def datos_por_medalla(lista,medalla):
     matriz = [["Atleta","Deporte"]]
     for j in lista:
         if j[2] == medalla:
             matriz.append([' '.join(j[3].split("_")),j[0]])
-    st.table(matriz)
+    st.dataframe(matriz)
 
 st.title("Juegos Panamericanos")
 
