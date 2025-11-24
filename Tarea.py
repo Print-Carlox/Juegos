@@ -1,7 +1,11 @@
 import streamlit as st
 import io
 
+st.title("Juegos Panamericanos")
+
 lista_txt = []
+columna1, columna2 = st.columns(2)
+
 archivo = st.file_uploader("Sube un archivo.txt", type=["txt"])
 if archivo is not None:
     contenido = archivo.getvalue().decode("utf-8")
@@ -42,8 +46,9 @@ for tupla in paises_ordenados:
     contenido += "{:<7}{:<7}{:<7}{:<7}{:<7}\n".format(tupla[0],tupla[1][0],tupla[1][1],tupla[1][2],sum(tupla[1]))
 cont = io.BytesIO(contenido.encode("utf-8"))
 if archivo is not None:
-    st.info("Archivo con la cantidad de medallas que obtuvo cada país y su total")
-    st.download_button(label = "Descargar medallero.txt",
+    with columna1:
+        st.subheader("Archivo con la cantidad de medallas que obtuvo cada país y su total")
+        st.download_button(label = "Descargar medallero.txt",
                    data = cont,
                    file_name = "medallero.txt",
                    mime = "text/plain")
@@ -65,8 +70,9 @@ for tupla in deportes_ordenados:
     contenido_2 += "{:<25}{:<5}\n".format(tupla[0],tupla[1])
 cont_2 = io.BytesIO(contenido.encode("utf-8"))
 if archivo is not None:
-    st.info("Archivo con la cantidad de medallas que se entregaron en cada deporte")
-    st.download_button(label = "Descargar deportes.txt",
+    with columna2:
+        st.subheader("Archivo con la cantidad de medallas que se entregaron en cada deporte")
+        st.download_button(label = "Descargar deportes.txt",
                    data = cont_2,
                    file_name = "deportes.txt",
                    mime = "text/plain")
@@ -121,8 +127,6 @@ def datos_por_medalla(lista,medalla):
         if j[2] == medalla:
             matriz.append([' '.join(j[3].split("_")),j[0]])
     st.dataframe(matriz)
-
-st.title("Juegos Panamericanos")
 
 opcion = st.selectbox("¿Qué deseas consultar?",
                       ["Seleccione una opción",
