@@ -31,8 +31,7 @@ def sin_paises_repetidos(lista):
     for elemento in lista:
         if elemento[1] not in diccionario:
             diccionario[elemento[1]] = [0,0,0]
-        else:
-            diccionario[elemento[1]][sumar_medallas(elemento[2])] += 1
+        diccionario[elemento[1]][sumar_medallas(elemento[2])] += 1
     return diccionario       
 
 paises_medallas = sin_paises_repetidos(lista_txt)
