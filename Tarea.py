@@ -74,25 +74,20 @@ if archivo is not None:
                    file_name = "deportes.txt",
                    mime = "text/plain")
     
-def indice_deporte(lista,elemento):
-    for i,sublista in enumerate(lista):
-        if elemento in sublista:
-            return i
-
 def sin_atletas_repetidos(indice):
-    lista = []
+    resultado = []
     for sublista in lista_txt:
         if sublista[indice] not in lista:
-            lista.append(sublista[indice])
-    return lista
+            resultado.append(sublista[indice])
+    return resultado
             
 atletas_lista = sin_atletas_repetidos(3)
 
 def datos_por_deporte(lista,diccionario,deporte):
-    inicio = indice_deporte(lista,deporte)
     matriz = [["Nombre","País","Medallas"]]
-    for x in lista[inicio:diccionario.get(deporte)+inicio]:
-        matriz.append([' '.join(x[3].split("_")),x[1],x[2]])
+    for x in lista:
+        if x[0] == deporte:
+            matriz.append([' '.join(x[3].split("_")),x[1],x[2]])
     st.dataframe(matriz)
     
 def indice_atleta(lista,elemento):
