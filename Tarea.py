@@ -83,7 +83,7 @@ def sin_atletas_repetidos(indice):
             
 atletas_lista = sin_atletas_repetidos(3)
 
-def datos_por_deporte(lista,diccionario,deporte):
+def datos_por_deporte(lista,deporte):
     matriz = [["Nombre","País","Medallas"]]
     for x in lista:
         if x[0] == deporte:
@@ -130,7 +130,7 @@ opcion = st.selectbox("¿Qué deseas consultar?",
 if opcion == "1. Datos por deporte: Nombre de los atletas, país y medallas que obtuvieron":
     deporte = st.selectbox("Seleccione un deporte", list(deportes.keys()))
     if st.button("Ver resultados"):
-        datos_por_deporte(lista_txt,deportes,deporte)
+        datos_por_deporte(lista_txt,deporte)
         
 elif opcion == "2. Datos por Atleta: País de procedencia, deporte que practica y resultado que obtuvo":
     atleta = st.selectbox("Seleccione un atleta", atletas_lista)
