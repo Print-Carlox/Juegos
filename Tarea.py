@@ -15,6 +15,7 @@ if archivo is not None:
 else:
     st.info("Por favor sube el archivo para continuar")
 
+st.markdown("##  Descargas disponibles")
 columna1, columna2 = st.columns(2)
 
 def sumar_medallas(valor):
