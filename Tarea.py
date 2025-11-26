@@ -77,7 +77,7 @@ if archivo is not None:
 def sin_atletas_repetidos(indice):
     resultado = []
     for sublista in lista_txt:
-        if sublista[indice] not in lista:
+        if sublista[indice] not in resultado:
             resultado.append(sublista[indice])
     return resultado
             
